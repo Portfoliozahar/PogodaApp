@@ -3,7 +3,7 @@
 для работы надо создать в MySQL 
 
 
--- Создание таблицы Базы
+-- Создание Базы
 ```sql
 CREATE DATABASE app;
 ```
@@ -28,7 +28,7 @@ CREATE TABLE Forecast (
 );
 ```
 
--- Вставка тестовых данных в таблицу Coordinates
+-- Тесты
 ```sql
 INSERT INTO Coordinates (latitude, longitude) VALUES
   (52.52, 13.41),
@@ -36,7 +36,7 @@ INSERT INTO Coordinates (latitude, longitude) VALUES
   (40.71, -74.01);
 ```
 
--- Вставка тестовых данных в таблицу Forecast
+-- Тесты
 ```sql
 INSERT INTO Forecast (coordinate_id, date_time, temperature, precipitation) VALUES
   (1, '2023-07-06 12:00:00', 25.5, 0.2),
