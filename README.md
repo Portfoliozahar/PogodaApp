@@ -4,8 +4,11 @@
 
 
 -- Создание таблицы Базы
+```sql
 CREATE DATABASE app;
+```
 
+```sql
 -- Создание таблицы Coordinates
 CREATE TABLE Coordinates (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -14,6 +17,7 @@ CREATE TABLE Coordinates (
 );
 
 -- Создание таблицы Forecast
+```sql
 CREATE TABLE Forecast (
   id INT AUTO_INCREMENT PRIMARY KEY,
   coordinate_id INT NOT NULL,
@@ -22,14 +26,18 @@ CREATE TABLE Forecast (
   precipitation FLOAT NOT NULL,
   FOREIGN KEY (coordinate_id) REFERENCES Coordinates(id)
 );
+```
 
 -- Вставка тестовых данных в таблицу Coordinates
+```sql
 INSERT INTO Coordinates (latitude, longitude) VALUES
   (52.52, 13.41),
   (51.51, -0.13),
   (40.71, -74.01);
+```
 
 -- Вставка тестовых данных в таблицу Forecast
+```sql
 INSERT INTO Forecast (coordinate_id, date_time, temperature, precipitation) VALUES
   (1, '2023-07-06 12:00:00', 25.5, 0.2),
   (1, '2023-07-06 15:00:00', 27.8, 0.0),
@@ -37,7 +45,7 @@ INSERT INTO Forecast (coordinate_id, date_time, temperature, precipitation) VALU
   (2, '2023-07-06 15:00:00', 22.3, 0.0),
   (3, '2023-07-06 12:00:00', 30.0, 0.5),
   (3, '2023-07-06 15:00:00', 32.2, 0.0);
-
+```
 
 ##Подключение
 String username = "root";
