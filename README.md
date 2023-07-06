@@ -15,6 +15,7 @@ CREATE TABLE Coordinates (
   latitude FLOAT NOT NULL,
   longitude FLOAT NOT NULL
 );
+```
 
 -- стол Forecast
 ```sql
