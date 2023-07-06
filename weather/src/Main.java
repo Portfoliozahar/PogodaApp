@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -195,15 +196,20 @@ public class Main {
                     System.out.println("Введите время прогноза (ЧЧ:мм):");
                     String forecastTimeString = scanner.next();
                     String forecastDateTimeString = forecastDateString + " " + forecastTimeString;
-                    LocalDateTime forecastDateTime = LocalDateTime.parse(forecastDateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                    ForRes forecastResponse = weatherApp.getForecastByDateTime(forecastId, forecastDateTime);
-                    if (forecastResponse != null) {
-                        System.out.println("Температура: " + forecastResponse.getTemperature());
-                        System.out.println("Осадки: " + forecastResponse.getPrecipitation());
-                    } else {
-                        System.out.println("Прогноз не найден.");
+                    try {
+                        LocalDateTime forecastDateTime = LocalDateTime.parse(forecastDateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                        ForRes forecastResponse = weatherApp.getForecastByDateTime(forecastId, forecastDateTime);
+                        if (forecastResponse != null) {
+                            System.out.println("Температура: " + forecastResponse.getTemperature());
+                            System.out.println("Осадки: " + forecastResponse.getPrecipitation());
+                        } else {
+                            System.out.println("Прогноз не найден.");
+                        }
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Ошибка: неправильный формат даты или времени.");
                     }
                     break;
+
 
                 default:
                     System.out.println("Error.");
