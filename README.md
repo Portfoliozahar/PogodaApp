@@ -48,7 +48,11 @@ INSERT INTO Forecast (coordinate_id, date_time, temperature, precipitation) VALU
 ```
 
 ##Подключение
+
 String username = "root";
+
 String password = "12345";
+
 String url = "jdbc:mysql://localhost:3306/app";
+
 Class.forName("com.mysql.cj.jdbc.Driver");
