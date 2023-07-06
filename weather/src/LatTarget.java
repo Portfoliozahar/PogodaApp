@@ -1,9 +1,9 @@
-public class LatLongTarget {
+public class LatTarget {
     private int id;
     private float latitude;
     private float longitude;
 
-    public LatLongTarget(int id, float latitude, float longitude) {
+    public LatTarget(int id, float latitude, float longitude) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;

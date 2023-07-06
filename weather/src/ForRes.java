@@ -1,8 +1,8 @@
-public class ForecastResponse {
+public class ForRes {
     private float temperature;
     private float precipitation;
 
-    public ForecastResponse(float temperature, float precipitation) {
+    public ForRes(float temperature, float precipitation) {
         this.temperature = temperature;
         this.precipitation = precipitation;
     }

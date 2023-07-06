@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 
-public class WeatherApp {
+public class Main {
     private Connection connection;
-    public WeatherApp() throws SQLException {
+    public Main() throws SQLException {
 
 
         String username = "root";
@@ -87,8 +87,8 @@ public class WeatherApp {
         }
     }
 
-    public ForecastResponse getForecastByDateTime(int id, LocalDateTime dateTime) {
-        ForecastResponse forecastResponse = null;
+    public ForRes getForecastByDateTime(int id, LocalDateTime dateTime) {
+        ForRes forecastResponse = null;
 
         try {
 
@@ -101,7 +101,7 @@ public class WeatherApp {
             if (resultSet.next()) {
                 float temperature = resultSet.getFloat("temperature");
                 float precipitation = resultSet.getFloat("precipitation");
-                forecastResponse = new ForecastResponse(temperature, precipitation);
+                forecastResponse = new ForRes(temperature, precipitation);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,8 +110,8 @@ public class WeatherApp {
         return forecastResponse;
     }
 
-    public List<LatLongTarget> getAllTargets() {
-        List<LatLongTarget> targets = new ArrayList<>();
+    public List<LatTarget> getAllTargets() {
+        List<LatTarget> targets = new ArrayList<>();
 
         try {
 
@@ -123,7 +123,7 @@ public class WeatherApp {
                 int id = resultSet.getInt("id");
                 float latitude = resultSet.getFloat("latitude");
                 float longitude = resultSet.getFloat("longitude");
-                LatLongTarget target = new LatLongTarget(id, latitude, longitude);
+                LatTarget target = new LatTarget(id, latitude, longitude);
                 targets.add(target);
             }
         } catch (SQLException e) {
@@ -134,7 +134,7 @@ public class WeatherApp {
     }
 
     public static void main(String[] args) throws SQLException {
-        WeatherApp weatherApp = new WeatherApp();
+        Main weatherApp = new Main();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -158,9 +158,9 @@ public class WeatherApp {
                     System.out.println("Зарегистрированные координаты. ID " + id);
                     break;
                 case 2:
-                    List<LatLongTarget> targets = weatherApp.getAllTargets();
+                    List<LatTarget> targets = weatherApp.getAllTargets();
                     System.out.println("Зарегистрированные координаты:");
-                    for (LatLongTarget target : targets) {
+                    for (LatTarget target : targets) {
                         System.out.println("ID: " + target.getId() + ", Широта: " + target.getLatitude() + ", Долгота: " + target.getLongitude());
                     }
                     break;
@@ -179,7 +179,7 @@ public class WeatherApp {
                     }
                     break;
                 case 4:
-                    System.out.println("Введите ID координат, чтобы получить доступные дату:");
+                    System.out.println("Введите ID координат, чтобы получить доступные даты:");
                     int availableId = scanner.nextInt();
                     List<LocalDateTime> dateTimeList = weatherApp.getAvailableForecastAsDateTimeList(availableId);
                     System.out.println("Доступные даты и время прогноза:");
@@ -196,7 +196,7 @@ public class WeatherApp {
                     String forecastTimeString = scanner.next();
                     String forecastDateTimeString = forecastDateString + " " + forecastTimeString;
                     LocalDateTime forecastDateTime = LocalDateTime.parse(forecastDateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                    ForecastResponse forecastResponse = weatherApp.getForecastByDateTime(forecastId, forecastDateTime);
+                    ForRes forecastResponse = weatherApp.getForecastByDateTime(forecastId, forecastDateTime);
                     if (forecastResponse != null) {
                         System.out.println("Температура: " + forecastResponse.getTemperature());
                         System.out.println("Осадки: " + forecastResponse.getPrecipitation());
