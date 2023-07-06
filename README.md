@@ -39,9 +39,9 @@ INSERT INTO Coordinates (latitude, longitude) VALUES
 -- Тесты
 ```sql
 INSERT INTO Forecast (coordinate_id, date_time, temperature, precipitation) VALUES
-  (1, '2023-07-06 12:00:00', 25.5, 0.2),
-  (1, '2023-07-06 15:00:00', 27.8, 0.0),
-  (2, '2023-07-06 15:00:00', 32.2, 0.0);
+  (1, '2023-07-06 15:03:34', 25.5, 0.2),
+  (1, '2023-07-06 15:04:24', 27.8, 0.2),
+  (2, '2023-07-06 15:05:12', 32.2, 0.1);
 ```
 
 ##Подключение
