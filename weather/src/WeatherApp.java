@@ -30,14 +30,14 @@ public class WeatherApp {
         int id = -1;
 
         try {
-            // Вставка координат в таблицу Coordinates
+
             String insertQuery = "INSERT INTO coordinates (latitude, longitude) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setFloat(1, latitude);
             preparedStatement.setFloat(2, longitude);
             preparedStatement.executeUpdate();
 
-            // Получение сгенерированного идентификатора
+
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 id = generatedKeys.getInt(1);
@@ -53,7 +53,7 @@ public class WeatherApp {
         List<LocalDateTime> dateTimeList = new ArrayList<>();
 
         try {
-            // Получение списка доступных дат-времени прогноза для указанного идентификатора
+
             String selectQuery = "SELECT DISTINCT date_time FROM forecast WHERE coordinate_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
             preparedStatement.setInt(1, id);
@@ -72,7 +72,7 @@ public class WeatherApp {
 
     public boolean updateForecast(int id, float latitude, float longitude) {
         try {
-            // Обновление координат в таблице Coordinates
+
             String updateQuery = "UPDATE coordinates SET latitude = ?, longitude = ? WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
             preparedStatement.setFloat(1, latitude);
@@ -91,7 +91,7 @@ public class WeatherApp {
         ForecastResponse forecastResponse = null;
 
         try {
-            // Получение прогноза по идентификатору и времени
+
             String selectQuery = "SELECT temperature, precipitation FROM forecast WHERE coordinate_id = ? AND date_time = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
             preparedStatement.setInt(1, id);
@@ -179,7 +179,7 @@ public class WeatherApp {
                     }
                     break;
                 case 4:
-                    System.out.println("Введите идентификатор координат, чтобы получить доступные даты и время прогноза.:");
+                    System.out.println("Введите ID координат, чтобы получить доступные дату:");
                     int availableId = scanner.nextInt();
                     List<LocalDateTime> dateTimeList = weatherApp.getAvailableForecastAsDateTimeList(availableId);
                     System.out.println("Доступные даты и время прогноза:");
@@ -190,24 +190,26 @@ public class WeatherApp {
                 case 5:
                     System.out.println("Введите ID координат:");
                     int forecastId = scanner.nextInt();
-                    System.out.println("Введите дату и время прогноза (гггг-ММ-дд ЧЧ:мм):");
-                    String forecastDateTimeString = scanner.next() + " " + scanner.next();
-                    LocalDateTime forecastDateTime = LocalDateTime.parse(forecastDateTimeString, DateTimeFormatter.ofPattern("гггг-ММ-дд ЧЧ:мм"));
+                    System.out.println("Введите дату прогноза (гггг-ММ-дд):");
+                    String forecastDateString = scanner.next();
+                    System.out.println("Введите время прогноза (ЧЧ:мм):");
+                    String forecastTimeString = scanner.next();
+                    String forecastDateTimeString = forecastDateString + " " + forecastTimeString;
+                    LocalDateTime forecastDateTime = LocalDateTime.parse(forecastDateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                     ForecastResponse forecastResponse = weatherApp.getForecastByDateTime(forecastId, forecastDateTime);
                     if (forecastResponse != null) {
                         System.out.println("Температура: " + forecastResponse.getTemperature());
                         System.out.println("Осадки: " + forecastResponse.getPrecipitation());
                     } else {
-                        System.out.println("Не найдено.");
+                        System.out.println("Прогноз не найден.");
                     }
                     break;
+
                 default:
                     System.out.println("Error.");
                     break;
             }
 
-
-            System.out.println("--------------------------------------------------");
         }
     }
 }
