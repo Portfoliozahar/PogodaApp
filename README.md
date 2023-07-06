@@ -9,14 +9,14 @@ CREATE DATABASE app;
 ```
 
 ```sql
--- Создание таблицы Coordinates
+--  стол Coordinates
 CREATE TABLE Coordinates (
   id INT AUTO_INCREMENT PRIMARY KEY,
   latitude FLOAT NOT NULL,
   longitude FLOAT NOT NULL
 );
 
--- Создание таблицы Forecast
+-- стол Forecast
 ```sql
 CREATE TABLE Forecast (
   id INT AUTO_INCREMENT PRIMARY KEY,
